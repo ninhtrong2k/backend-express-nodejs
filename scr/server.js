@@ -12,13 +12,13 @@ app.use('/test', webRoutes);
 app.use('/', webRoutes);
 
 
-connection.query(
-  'SELECT * FROM User', 
-  function(err, results, fields) {
-    console.log(results);
-    console.log(fields);
-  }
-);
+// connection.query(
+//   'SELECT * FROM User', 
+//   function(err, results, fields) {
+//     console.log(results);
+//     console.log(fields);
+//   }
+// );
 
 app.listen(port, hostname => {
   console.log(`Example app listening on port ${port}`);
