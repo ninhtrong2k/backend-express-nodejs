@@ -50,3 +50,7 @@ button {
     height: 20px;
     cursor: pointer;
 }
+
+.d-none {
+    display: none;
+}
