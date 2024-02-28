@@ -7,9 +7,10 @@
         <link rel="stylesheet" href="/css/style.css" />
     </head>
     <body>
+        <%= JSON.stringify(userEidt) %>
         <div class="topnav">
-            <a  href="/">Home</a>
-            <a  href="/create">Ceact User</a>
+            <a href="/">Home</a>
+            <a href="/create">Ceact User</a>
             <a class="active" href="/update">Update User</a>
         </div>
         <div class="form-add-new">
@@ -19,15 +20,27 @@
                     <legend>Update new users</legend>
                     <div class="input-group">
                         <label for="">Email</label>
-                        <input type="text" name="email"/>
+                        <input
+                            type="text"
+                            name="email"
+                            value="<%= userEidt.email %>"
+                        />
                     </div>
                     <div class="input-group">
                         <label for="">Name</label>
-                        <input type="text" name="fullname" />
+                        <input
+                            type="text"
+                            name="fullname"
+                            value="<%= userEidt.name %>"
+                        />
                     </div>
                     <div class="input-group">
                         <label for="">City</label>
-                        <input type="text" name="city" />
+                        <input
+                            type="text"
+                            name="city"
+                            value="<%= userEidt.city %>"
+                        />
                     </div>
                     <div>
                         <button>Save</button>
