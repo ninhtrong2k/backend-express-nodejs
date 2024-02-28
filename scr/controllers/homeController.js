@@ -20,6 +20,11 @@ const getHoiDanIT = (req, res) => {
     res.render('sample'); 
 
 }
+
+const postCreateUser = (rq, res) =>{
+    res.render('sample'); 
+
+}
 module.exports = {
-    getHomepage, getABC, getHoiDanIT
+    getHomepage, getABC, getHoiDanIT , postCreateUser
 }
