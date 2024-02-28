@@ -9,22 +9,32 @@ const getABC = (req, res) => {
         'SELECT * FROM `User` ',
         function (err, results, fields) {
             users = results;
-            console.log('log',results);  
+            console.log('log', results);
             console.log(fields);
             res.send(JSON.stringify(users));
-        } 
+        }
     );
-    
+
 }
 const getHoiDanIT = (req, res) => {
-    res.render('sample'); 
+    res.render('sample');
 
 }
 
-const postCreateUser = (rq, res) =>{
-    res.render('sample'); 
-
+const postCreateUser = async (rq, res) => {
+    let email = rq.body.email;
+    let name = rq.body.fullname;
+    let city = rq.body.city;
+    let [results, fields] = await connection.query(
+        `INSERT INTO User (email, name, city)
+        VALUES (?, ?, ?)`,
+        [email, name, city]);
+    res.send("Created user suceed");
+    console.log(results);
+}
+const getCreatePage = (req, res) => {
+    res.render('create.ejs')
 }
 module.exports = {
-    getHomepage, getABC, getHoiDanIT , postCreateUser
+    getHomepage, getABC, getHoiDanIT, postCreateUser, getCreatePage
 }

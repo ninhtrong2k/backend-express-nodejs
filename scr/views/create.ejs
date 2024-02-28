@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Create User</title>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+    <body>
+        <div class="topnav">
+            <a  href="/">Home</a>
+            <a class="active" href="/create">React User</a>
+        </div>
+        <div class="form-add-new">
+            <!-- 7:13 -->
+            <form action="/create_user" method="post">
+                <fieldset>
+                    <legend>Add new users</legend>
+                    <div class="input-group">
+                        <label for="">Email</label>
+                        <input type="text" name="email"/>
+                    </div>
+                    <div class="input-group">
+                        <label for="">Name</label>
+                        <input type="text" name="fullname" />
+                    </div>
+                    <div class="input-group">
+                        <label for="">City</label>
+                        <input type="text" name="city" />
+                    </div>
+                    <div>
+                        <button>Save</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>
