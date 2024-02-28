@@ -1,6 +1,8 @@
 const connection = require('../config/database');
-const getHomepage = (req, res) => {
-    return res.render('home.ejs')
+const {getAllUsers} = require('../services/CRUDService')
+const getHomepage = async(req, res) => {
+    let results = await getAllUsers();
+    return res.render('home.ejs',{listUsers : results})
 }
 
 const getABC = (req, res) => {
@@ -33,7 +35,7 @@ const postCreateUser = async (rq, res) => {
     console.log(results);
 }
 const getCreatePage = (req, res) => {
-    res.render('create.ejs')
+    res.render('create.ejs');
 }
 module.exports = {
     getHomepage, getABC, getHoiDanIT, postCreateUser, getCreatePage
