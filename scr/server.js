@@ -5,7 +5,7 @@ const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
 const connection = require('./config/database')
 const mongoose = require('mongoose');
-
+const Kitten = require('./models/Kitten')
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME;
 // config req.body
@@ -18,12 +18,10 @@ configViewEngine(app);
 app.use('/test', webRoutes);
 app.use('/', webRoutes);
 
-const kittySchema = new mongoose.Schema({
-  name: String
-});
-const Kitten = mongoose.model('Kitten', kittySchema);
-const silence = new Kitten({ name: 'Hoi Dan it Cat' });
-silence.save();
+  const cat = new Kitten({ name: 'Hoi Dan it Cat OK' });
+  cat.save();
+
+
 // Run db before server
 (async () => {
   try {
