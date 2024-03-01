@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const {uploadSingleFile} = require('../services/fileService')
+const { uploadSingleFile, uploadMultipleFiles } = require('../services/fileService')
 const getusersAPI = async (req, res) => {
     let results = await User.find({});
     return res.status(200).json(
@@ -44,7 +44,7 @@ const putUpdateUser = async (rq, res) => {
 const deleteUserAPI = async (rq, res) => {
     let userId = rq.body.userId;
     let result = await User.deleteOne({
-        _id : userId
+        _id: userId
     })
     return res.status(200).json(
         {
@@ -54,15 +54,31 @@ const deleteUserAPI = async (rq, res) => {
     )
 }
 
-const postUploadSingleFileApi = async(req , res) => {
-    console.log("rq",req.files)
-    if(!req.files || Object.keys(req.files).length === 0){
+const postUploadSingleFileApi = async (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send("No file uploadfile")
     }
     let result = await uploadSingleFile(req.files.image);
     console.log(result);
     return res.send("Oki singer");
 }
+
+const postUploadMultipleFilesApi = async (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send("No file uploadfile")
+    }
+    if (Array.isArray(req.files.image)) {   /// kiểm tả xem có phải là 1 mảng ko 
+        let result = await uploadMultipleFiles(req.files.image);
+        return res.status(200).json(
+            {
+                EC: 0,
+                data: result
+            }
+        )
+    }else {
+        return await postUploadSingleFileApi(req, res);
+    }
+}
 module.exports = {
-    getusersAPI, postCreateUserAPI , putUpdateUser , deleteUserAPI , postUploadSingleFileApi
+    getusersAPI, postCreateUserAPI, putUpdateUser, deleteUserAPI, postUploadSingleFileApi, postUploadMultipleFilesApi
 }
