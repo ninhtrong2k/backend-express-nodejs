@@ -11,3 +11,5 @@ npm install --save-exact mysql2@2.3.3
 npm install --save-exact mongoose@6.7.2
 
 npm install --save-exact express-fileupload@1.4.0
+
+npm install --save-exact mongoose-delete@0.5.4

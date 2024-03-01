@@ -2,8 +2,10 @@ const connection = require('../config/database');
 const { getAllUsers, getUserById, updateUserById,
     deleteUserById } = require('../services/CRUDService');
 const User = require("../models/user");
+const {getAllCustomerService  , getCustomerByIdService} = require('../services/customerService')
+
 const getHomepage = async (req, res) => {
-    let results = await User.find({});
+    let results = await getAllCustomerService({});
     return res.render('home.ejs', { listUsers: results })
 }
 
@@ -41,7 +43,7 @@ const getCreatePage = (req, res) => {
 }
 const getUpdatePage = async (req, res) => {
     const userId = req.params.id;
-    let user = await User.findById(userId).exec();
+    let user = await getCustomerByIdService(userId);
     res.render('edit.ejs', { userEidt: user });
 }
 
