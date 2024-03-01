@@ -41,7 +41,7 @@ const getCreatePage = (req, res) => {
 }
 const getUpdatePage = async (req, res) => {
     const userId = req.params.id;
-    let user = await getUserById(userId);
+    let user = await User.findById(userId).exec();
     res.render('edit.ejs', { userEidt: user });
 }
 
@@ -50,21 +50,22 @@ const postUpdateUser = async (rq, res) => {
     let name = rq.body.fullname;
     let city = rq.body.city;
     let userId = rq.body.userId;
-    await updateUserById(email, city, name, userId);
-    // res.send("Update user suceed");
+    await User.updateOne({ _id: userId }, { email: email , name: name ,city: city  })
     res.redirect('/');
 }
 
 const postDeleteUser = async (req, res) => {
     const userId = req.params.id;
-    let user = await getUserById(userId);
+    let user = await User.findById(userId).exec();
     res.render("delete.ejs", { userEidt: user });
 
 }
 
 const postHandleRemoveUser = async (rq, res) => {
     let userId = rq.body.userId;
-    await deleteUserById(userId);
+    await User.deleteOne({
+        _id : userId
+    })
     res.redirect('/');
 
 }
