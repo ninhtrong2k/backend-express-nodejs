@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const configViewEngine = require('./config/viewEngine');
+
+const fileUpload = require('express-fileupload');
+
 const webRoutes = require('./routes/web');
 const apiRouter = require('./routes/api');
 const connection = require('./config/database')
@@ -12,8 +15,11 @@ const hostname = process.env.HOST_NAME;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 configViewEngine(app);
+
+
+// config file uplaod
+app.use(fileUpload());
 
 app.use('/', webRoutes);
 app.use('/v1/api', apiRouter);
