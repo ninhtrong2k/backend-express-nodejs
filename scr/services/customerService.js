@@ -1,4 +1,6 @@
 const Customer = require("../models/customer");
+const aqp = require('api-query-params');
+
 const createCustomerService = async (customerData) => {
     try {
         let result = await Customer.create({
@@ -26,9 +28,20 @@ const createArrayCustomerService = async (arr) => {
 
     }
 }
-const getAllCustomerService = async () => {
+const getAllCustomerService = async (limit,page , queryString) => {
     try {
-        let result = await Customer.find();
+        // let result = null;
+        if(limit && page){
+            let offset = (page - 1)* limit;
+            // lý do dùng filter  aqp  , đển covert ví dụ toán tử like , in  giống trong SQL
+            // Cú pháp phức tạp ta chỉ cần chuyển query thông qua fiter này nó tự convert cú pháp 
+            // truyền name = hai,long nó cũng giống như In (hai , long)
+            const { filter} = aqp(queryString);
+            delete filter.page;
+            result =  await Customer.find(filter).skip(offset).limit(limit).exec();
+        }else {
+            let result = await Customer.find({});
+        }
         return result;
     } catch (error) {
         console.log("err", error);
@@ -63,6 +76,17 @@ const deleteACustomerService = async (id) => {
         return null;
     }
 }
+
+const deleteArrCustomerService = async (idArray) => {
+    try {
+        let result = await Customer.delete({ _id: {$in : idArray}});
+        return result;
+    } catch (error) {
+        console.log("err", error);
+        return null;
+    }
+}
 module.exports = {
-    createCustomerService, createArrayCustomerService, getAllCustomerService, putCustomerService , getCustomerByIdService, deleteACustomerService
+    createCustomerService, createArrayCustomerService, getAllCustomerService, putCustomerService ,
+     getCustomerByIdService, deleteACustomerService , deleteArrCustomerService
 }
